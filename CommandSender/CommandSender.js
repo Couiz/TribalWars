@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1a
+// @version      0.1b
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
@@ -17,18 +17,15 @@ CommandSender = {
 	init: function() {
 		$($('#command-data-form').find('tbody')[0]).append('<tr><td>Przybycie:</td><td> <input type="datetime-local" id="CStime" step=".001"> </td></tr><tr> <td>Offset:</td><td> <input type="number" id="CSoffset"> <button type="button" id="CSbutton" class="btn">Potwierdź</button> </td></tr>');
 		this.confirmButton = $('#troop_confirm_go');
-		this.duration = $('#command-data-form').find('td:contains("Trwanie:")').next().text().split(':');
-		this.offset = localStorage.getItem('CS.offset') || -350;
+		this.duration = $('#command-data-form').find('td:contains("Trwanie:")').next().text().split(':').map(Number);;
+		this.offset = localStorage.getItem('CS.offset') || -250;
 		this.dateNow = this.convertToInput(new Date());
 		$('#CSoffset').val(this.offset);
 		$('#CStime').val(this.dateNow);
 		$('#CSbutton').click(function() {
 			var offset = Number($('#CSoffset').val());
-			var attackTime = new Date($('#CStime').val().replace('T',' '));
+			var attackTime = CommandSender.getAttackTime();
 			localStorage.setItem('CS.offset', offset);
-			attackTime.setHours(attackTime.getHours()-CommandSender.duration[0]);
-			attackTime.setMinutes(attackTime.getMinutes()-CommandSender.duration[1]);
-			attackTime.setSeconds(attackTime.getSeconds()-CommandSender.duration[2]);
 			CommandSender.confirmButton.addClass('btn-disabled');
 			setTimeout(function() {
 				CommandSender.confirmButton.click();
@@ -36,7 +33,17 @@ CommandSender = {
 			this.disabled = true;
 		});
 	},
+	getAttackTime: function() {
+		var d = new Date($('#CStime').val().replace('T',' '));
+		d.setHours(d.getHours()-this.duration[0]);
+		d.setMinutes(d.getMinutes()-this.duration[1]);
+		d.setSeconds(d.getSeconds()-this.duration[2]);
+		return d;
+	},
 	convertToInput: function(t) {
+		t.setHours(t.getHours()+this.duration[0]);
+		t.setMinutes(t.getMinutes()+this.duration[1]);
+		t.setSeconds(t.getSeconds()+this.duration[2]);
 		var a = {
 			y: t.getFullYear(),
 			m: t.getMonth() + 1,
