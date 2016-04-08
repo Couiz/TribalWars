@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1
+// @version      0.11
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
@@ -13,21 +13,7 @@ CommandSender = {
 	dateNow: null,
 	offset: null,
 	init: function() {
-		$($('#command-data-form').find('tbody')[0]).append(`
-		<tr>
-		    <td>Przybycie:</td>
-		    <td>
-		        <input type="datetime-local" id="CStime" step=".001">
-		    </td>
-		</tr>
-		<tr>
-		    <td>Offset:</td>
-		    <td>
-		        <input type="number" id="CSoffset">
-		        <button type="button" id="CSbutton" class="btn">Potwierdź</button>
-		    </td>
-		</tr>
-		`);
+		$($('#command-data-form').find('tbody')[0]).append('<tr><td>Przybycie:</td><td> <input type="datetime-local" id="CStime" step=".001"> </td></tr><tr> <td>Offset:</td><td> <input type="number" id="CSoffset"> <button type="button" id="CSbutton" class="btn">Potwierdź</button> </td></tr>');
 		this.confirmButton = $('#troop_confirm_go');
 		this.duration = $('#command-data-form').find('td:contains("Trwanie:")').next().text().split(':');
 		this.offset = localStorage.getItem('CS.offset') || -350;
@@ -83,15 +69,7 @@ CommandSender = {
 	    head.appendChild(style);
 	}
 };
-CommandSender.addGlobalStyle(`
-	#CStime, #CSoffset {
-		font-size: 9pt;
-	    font-family: Verdana,Arial;
-	}
-	#CSbutton {
-		float:right;
-	}
-`);
+CommandSender.addGlobalStyle('#CStime, #CSoffset {font-size: 9pt;font-family: Verdana,Arial;}#CSbutton {float:right;}');
 var a = setInterval(function(){
 	if (document.getElementById('command-data-form') && jQuery) {
 		CommandSender.init();
