@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1
+// @version      0.1a
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
 // @run-at       document-start
-// @downloadURL  https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
+// @updateURL    https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
 // ==/UserScript==
 
 CommandSender = {
@@ -33,9 +33,6 @@ CommandSender = {
 				CommandSender.confirmButton.click();
 			},attackTime-Timing.getCurrentServerTime()+offset);
 			this.disabled = true;
-		});
-		document.addEventListener('DOMContentLoaded', function(){
-			$('.server_info').prepend('<span style="float:left" >CommandSender Coded by: Couiz (xcouiz@gmail.com)</span>');
 		});
 	},
 	convertToInput: function(t) {
@@ -77,3 +74,6 @@ var a = setInterval(function(){
 		clearInterval(a);
 	}
 },1); // faster load
+document.addEventListener('DOMContentLoaded', function(){
+	$('.server_info').prepend('<span style="float:left" >CommandSender Coded by: Couiz (xcouiz@gmail.com)</span>');
+});
