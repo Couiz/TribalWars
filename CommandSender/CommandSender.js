@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1b
+// @version      0.1a
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
+// @downloadURL  https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
 // ==/UserScript==
 
 CommandSender = {
@@ -55,7 +56,7 @@ CommandSender = {
 				a.ms = '0' + a.ms;
 			}
 		}
-		return a.y + '-' + a.m + '-' + a.d + 'T' + a.time + '.' + a.ms;		
+		return a.y + '-' + a.m + '-' + a.d + 'T' + a.time + '.' + a.ms;
 	},
 	addGlobalStyle: function(css) {
 		var head, style;
