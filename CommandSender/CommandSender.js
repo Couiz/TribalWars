@@ -5,6 +5,7 @@
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
 // @run-at       document-start
+// @updateURL    https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
 // ==/UserScript==
 
 CommandSender = {
