@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1a
+// @version      0.1b
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
