@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.11
+// @version      0.1
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
 // @run-at       document-start
-// @updateURL    https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
+// @downloadURL    https://raw.githubusercontent.com/Couiz/TribalWars/master/CommandSender/CommandSender.js
 // ==/UserScript==
 
 CommandSender = {
