@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.1c
+// @version      0.2
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
@@ -16,7 +16,7 @@ CommandSender = {
 	offset: null,
 	init: function() {
 		$($('#command-data-form').find('tbody')[0]).append('<tr><td>Przybycie:</td><td> <input type="datetime-local" id="CStime" step=".001"> </td></tr><tr> <td>Offset:</td><td> <input type="number" id="CSoffset"> <button type="button" id="CSbutton" class="btn">Potwierdź</button> </td></tr>');
-		this.confirmButton = $('#troop_confirm_go');
+		this.confirmButton = $('#troop_confirm_submit');
 		this.duration = $('#command-data-form').find('td:contains("Trwanie:")').next().text().split(':').map(Number);
 		this.offset = localStorage.getItem('CS.offset') || -250;
 		this.dateNow = this.convertToInput(new Date());
@@ -83,5 +83,5 @@ var a = setInterval(function(){
 	}
 },1); // faster load
 document.addEventListener('DOMContentLoaded', function(){
-	$('.server_info').prepend('<span style="float:left" >CommandSender Coded by: Couiz (xcouiz@gmail.com)</span>');
+	$('.server_info').prepend('<span style="float:left" >CommandSender 0.2 Coded by: Couiz (xcouiz@gmail.com)</span>');
 });
