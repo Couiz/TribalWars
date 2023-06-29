@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CommandSender
-// @version      0.3
+// @version      0.4
 // @author       Couiz
 // @match        *://*.plemiona.pl/*&screen=place*&try=confirm*
 // @grant        none
@@ -68,6 +68,7 @@ class CommandSender {
 		this.elements.offsetInput = document.querySelector('#CS_offsetInput');
 		this.elements.arrivalTimeInput = document.querySelector('#CS_arrivalTime');
 		this.elements.confirmInputButton = document.querySelector('#CS_ConfirmButton');
+		this.elements.serverDelayDisplay = document.querySelector('#CS_serverDelay');
 
 		const form = document.querySelector('#command-data-form');
 		const durationText = Array.from(form.querySelectorAll('td')).find(td => td.textContent.includes("Trwanie:")).nextElementSibling.textContent;
@@ -83,8 +84,9 @@ class CommandSender {
 	}
 
 	setServerDelay() {
+		const { serverDelayDisplay } = this.elements;
 		const delay = Timing.getCurrentServerTime() - Date.now();
-		document.querySelector('#CS_serverDelay').textContent = `${Math.round(delay)} ms`;
+		serverDelayDisplay.textContent = `${Math.round(delay)} ms`;
 	}
 
 	handleConfirmButtonClick() {
@@ -105,7 +107,8 @@ class CommandSender {
 	}
 
 	getAttackTime() {
-		let d = new Date(document.querySelector('#CS_arrivalTime').value.replace('T', ' '));
+		const { arrivalTimeInput } = this.elements;
+		let d = new Date(arrivalTimeInput.value.replace('T', ' '));
 		d.setHours(d.getHours() - this.attackDuration[0]);
 		d.setMinutes(d.getMinutes() - this.attackDuration[1]);
 		d.setSeconds(d.getSeconds() - this.attackDuration[2]);
@@ -149,23 +152,31 @@ class CommandSender {
 	}
 }
 
-const commandSender = new CommandSender();
-
-window.addEventListener('DOMContentLoaded', () => {
+function init() {
 	if (!document.querySelector('#troop_confirm_submit')) {
+		console.log('Not on command page');
 		return;
 	}
 
+	const commandSender = new CommandSender();
 	commandSender.addGlobalStyle('#CS_arrivalTime, #CS_offsetInput {font-size: 9pt;font-family: Verdana,Arial;}');
 	commandSender.initialize();
 
-	document.querySelector('.server_info').insertAdjacentHTML('afterbegin', '<span style="float:left">CommandSender 0.3 Coded by: Couiz</span>');
-});
+	document.querySelector('.server_info').insertAdjacentHTML('afterbegin', '<span style="float:left">CommandSender 0.4 Coded by: Couiz</span>');
 
-window.addEventListener('load', () => {
-	console.log(`Timing.offset_from_server: ${Timing.offset_from_server}`);
-	console.log(`Timing.offset_to_server: ${Timing.offset_to_server}`);
-	console.log(`server_time - my_time: ${Timing.getCurrentServerTime() - Date.now()}`);
-	commandSender.setServerDelay();
-});
+	window.addEventListener('load', () => {
+		console.log(`Timing.offset_from_server: ${Timing.offset_from_server}`);
+		console.log(`Timing.offset_to_server: ${Timing.offset_to_server}`);
+		console.log(`server_time - my_time: ${Timing.getCurrentServerTime() - Date.now()}`);
+		commandSender.setServerDelay();
+	});
+}
+
+if (document.readyState !== 'loading') {
+	init();
+} else {
+	document.addEventListener('DOMContentLoaded', function () {
+		init();
+	});
+}
 
